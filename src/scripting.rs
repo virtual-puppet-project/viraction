@@ -9,16 +9,20 @@ feature_gate!(
 
 pub(crate) mod types {
     macro_rules! primitive {
-        ($($name:ident($type:ty)),+) => {
+        ($($name:ident$(($type:ty))?),+) => {
             $(
                 #[derive(Debug, Clone)]
-                pub struct $name(pub $type);
+                pub struct $name $((pub $type))?;
             )+
         };
     }
 
     primitive! {
+        ScriptNull,
+
         ScriptString(String),
+
+        ScriptBool(bool),
 
         ScriptU8(u8),
         ScriptI8(i8),
@@ -41,6 +45,12 @@ pub(crate) mod types {
 
     #[derive(Debug, Clone)]
     pub struct ScriptDictionary<T>(pub T);
+
+    #[derive(Debug, Clone)]
+    pub struct ScriptFunction<T>(pub T);
+
+    #[derive(Debug)]
+    pub struct ScriptError(Box<dyn std::error::Error>);
 }
 
 pub(crate) mod utils {

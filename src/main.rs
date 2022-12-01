@@ -11,6 +11,7 @@ use serde::{Deserialize, Serialize};
 
 const GIT_REV: &str = env!("GIT_REV");
 const BUILD_NAME: &str = env!("BUILD_NAME");
+const PROGRAM_NAME: &str = "viraction";
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 enum ViractionError {
@@ -63,7 +64,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     info!("Starting vaction: {} - {}", BUILD_NAME, GIT_REV);
 
-    let dirs = ProjectDirs::from("com", "vpuppr", "vaction").unwrap();
+    let dirs = ProjectDirs::from("com", "vpuppr", PROGRAM_NAME).unwrap();
 
     debug!("Config dir: {}", dirs.config_dir().display());
 
